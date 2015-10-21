@@ -51,6 +51,9 @@ npm install
 echo
 npm_installation_exit_code=$?
 # echo "npm_installation_exit_code:" $npm_installation_exit_code
+
+# at the moment, this way of detecting whether npm install has succeeded is problematic
+# exit codes are unpredictable and not in line with bash standards
 if [ $npm_installation_exit_code -eq 1 ]
 then
      echo "---node modules successfully installed---"
@@ -75,6 +78,8 @@ then
     hash composer 2>/dev/null || { echo >&2 "Composer is required, but it's not installed. Please install then try again. Aborting."; exit 1; }
     echo "---Installing composer dependencies..."
     composer install
+    # at the moment, this way of detecting whether composer has been successfully installed is problematic
+    # exit codes don't seem to be working - needs revisiting
     if [ $? -eq 0 ]
     then
         echo "---Composer dependencies installed---"
